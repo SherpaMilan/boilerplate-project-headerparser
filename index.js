@@ -1,6 +1,6 @@
 // index.js
 // where your node app starts
-
+require('dotenv').config();
 // init project
 require('dotenv').config();
 var express = require('express');
@@ -27,4 +27,16 @@ app.get('/api/hello', function (req, res) {
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
+});
+
+
+// Step 1: Create route for /api/who am I
+app.get('/api/whoami', (req, res) => {
+  // Step 2: Extract relevant information from request headers
+  const ipAddress = req.ip;
+  const language = req.headers['accept-language'];
+  const software = req.headers['user-agent'];
+
+  // Step 3: Return JSON object containing extracted information
+  res.json({ ipaddress: ipAddress, language: language, software: software });
 });
